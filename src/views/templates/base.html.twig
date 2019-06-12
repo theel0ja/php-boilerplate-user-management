@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {# Required meta tags #}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {# Bootstrap CSS #}
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    {% block head %}{% endblock %}
+
+    {% if block('title') is defined %}
+      <title>{{ block('title') }} - {{ APP_NAME }}</title>
+    {% else %}
+      <title>{{ APP_NAME }}</title>
+    {% endif %}
+
+  </head>
+  <body>
+    {# Navigation bar #}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">{{ APP_NAME }}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item{# active #}">
+            <a class="nav-link" href="/">Home{# <span class="sr-only">(current)</span> #}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        {% if logged_in %}
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/user/logout.php">Logout</a>
+            </li>
+          </ul>
+        {% else %}
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/user/login.php">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/register.php">Register</a>
+            </li>
+          </ul>
+        {% endif %}
+      </div>
+    </nav>
+
+    {# Content #}
+
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+
+    {# Not worth the extra resources needed, so disabled for now. #}
+    {#
+    <script src="/node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script>
+      // https://github.com/theel0ja/bsmenu-4/blob/master/bsmenu.js
+      $(document).ready(function () {
+        var url = window.location;
+        $('nav.navbar ul a[href="'+ url +'"]').parent().addClass('active');
+        $('nav.navbar ul a').filter(function() {
+          return this.href == url;
+        }).parent().addClass('active');
+      });
+    </script>
+    #}
+  </body>
+</html>
